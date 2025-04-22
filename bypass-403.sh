@@ -1,6 +1,15 @@
 #!/bin/bash
 # Refactored and payloads added by Nicholas Ferreira (github.com/Nickguitar)
-    
+
+random_user_agent() {
+  shuf -n 1 -e \
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.6312.106 Safari/537.36" \
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 13.3; rv:124.0) Gecko/20100101 Firefox/124.0" \
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Mobile/15E148 Safari/604.1" \
+    "Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.6312.106 Mobile Safari/537.36" \
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.6312.106 Safari/537.36 Edg/123.0.2420.65"
+}
+
 # Definir colores
 GREEN_BOLD='\033[1;92m'
 GRAY='\033[90m'
@@ -24,8 +33,10 @@ $1/$2#
 $1/$2/*
 $1/$2.php
 $1/$2.json
+$1/%252e**/$2
 "$1/$2..;/"
 " $1/$2;/"
+$1/$(tr [:lower:] [:upper:] <<< $2)
 -X TRACE $1/$2
 -H "Base-Url: 127.0.0.1" $1/$2
 -H "Client-IP: 127.0.0.1" $1/$2
@@ -78,21 +89,23 @@ EOF
 IFS=$'\n'
 for method in GET POST; do
   for payload in ${paths[@]}; do
-      cmd="curl -X $method -Lks -o /dev/null -iL -w \"%{http_code}\",\"%{size_download}\" $payload"
+      cmd="curl -A \"$(random_user_agent)\" -X $method -Lks -o /dev/null -iL -w \"%{http_code}\",\"%{size_download}\" $payload"
       result=$(eval $cmd)
       http_code=$(echo $result | cut -d ',' -f1)
       
 
       
       if [[ $http_code =~ ^[23][0-9]{2}$ ]]; then
-          # Código 2xx o 3xx - verde brillante y negrita
+          # 2xx o 3xx in green
           echo -e "${GREEN_BOLD}${result} $method ${payload}${NC}"
       else
-          # Otros códigos - gris
+          # others in gray
           echo -e "${GRAY}${result} $method ${payload}${NC}"
       fi
   done
 done
+
+#Look for entry in wayback machine except for HackTheBox
 if ! [[ $1 =~ .htb ]]; then
   echo
   echo "Way back machine:"
