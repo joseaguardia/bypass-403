@@ -1,5 +1,6 @@
 # Bypass-403
-- A simple script just made for self use for bypassing 403
+- A simple script just made for self use for bypassing 403, based on repo: https://github.com/iamj0ker/bypass-403 and the PR: https://github.com/iamj0ker/bypass-403/pull/16/files#diff-6dad67ba183b177aef657267efa1de4c8eed986321bb402006ca435b677cf368
+
 - It can also be used to compare responses on verious conditions as shown in the below snap
 ![](responses.jpg)
 
@@ -15,11 +16,5 @@
    * `git clone https://github.com/iamj0ker/bypass-403`
    * `cd bypass-403`
    * `chmod +x bypass-403.sh`
-   * `sudo apt install figlet`  - If you are unable to see the logo as in the screenshot
-   * `sudo apt install jq`      - If you don't have jq installed on your machine
+
    
-# Contributers
-  [remonsec](https://github.com/remonsec),
-  [manpreet](https://github.com/manpreet406)
-  [MayankPandey01](https://github.com/MayankPandey01)
-  [saadibabar](https://github.com/saadibabar)
