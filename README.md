@@ -7,14 +7,10 @@
 # Usage
 `./bypass-403.sh https://example.com admin`
 
-`./bypass-403.sh website-here path-here`
 
 # Features
-- Use 24 known Bypasses for 403 with the help of curl
+- Use more than 100 known bypasses for 403 with the help of curl
 
-# Installation
-   * `git clone https://github.com/iamj0ker/bypass-403`
-   * `cd bypass-403`
-   * `chmod +x bypass-403.sh`
+
 
    
