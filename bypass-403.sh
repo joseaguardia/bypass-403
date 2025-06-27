@@ -17,6 +17,7 @@ random_user_agent() {
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 13.3; rv:124.0) Gecko/20100101 Firefox/124.0" \
     "$RANDOM" \
     "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Mobile/15E148 Safari/604.1" \
+    " " \
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.6312.106 Safari/537.36 Edg/123.0.2420.65"
 }
 
@@ -153,7 +154,7 @@ $1/$(tr [:lower:] [:upper:] <<< $2)
 EOF
 
 IFS=$'\n'
-for method in GET POST; do
+for method in GET POST OPTIONS TRACE; do
   for payload in ${paths[@]}; do
       AGENT=$(random_user_agent)
       cmd="curl -A \"$AGENT\" -X $method -Lks -o /dev/null -iL -w \"%{http_code}\",\"%{size_download}\" $payload"
